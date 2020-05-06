@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'ralf_explorer/styles.css' %}" />
+        <title>Interrupt List</title>
+    </head>
+    <body>
+        <div class="content-main">
+            <h1>Misc. Information</h1>
+            <p>
+                <a href="{% url 'index' %}">home</a>
+            </p>
+            <div>
+                <h3 id="search-fields">What do all the search fields mean?</h3>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>category</td>
+                            <td>
+                                In the original list, interrupts were each assigned a category (list below), or if they
+                                were given none I gave them the category of 'uncategorized.' This field searches categories
+                                case insensitive via contains, so full category names are not required. 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>call number</td>
+                            <td>
+                                When calling an interrupt, a specific number is usually put in the AH/AX register to specify
+                                the specific desired function. I'm rather new to all of this so if there is a more proper
+                                name for this property I am unaware of it.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>interrupt number</td>
+                            <td>
+                                This is the number used when calling INT, numbers are encoded in hex.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>tagline</td>
+                            <td>
+                                In the original list, each interrupt was given a sort of tagline, or a breif summary usually
+                                containing the category and system it was for. This field searchs that propery case insensitive 
+                                via contains.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>section content</td>
+                            <td>
+                                This field is for searching the section content of a given interrupt, or the extra information
+                                such as description, returns, registers, and anything else noted by Ralf.
+                            </td>
+                        </tr>
+
+                    </table>
+                </p>
+                <h3 id="category-list">What are all the categories?</h3>
+                <p>
+                    <ul>
+                        <li>applications</li>
+                        <li>access software (screen readers</li>
+                        <li>BIOS</li>
+                        <li>vendor-specific BIOS extensions</li>
+                        <li>CPU-generated</li>
+                        <li>caches/spoolers</li>
+                        <li>DOS kernel</li>
+                        <li>disk I/O enhancements</li>
+                        <li>DOS extenders</li>
+                        <li>electronic mail</li>
+                        <li>FAX</li>
+                        <li>file manipulation</li>
+                        <li>debuggers/debugging tools</li>
+                        <li>games</li>
+                        <li>hardware</li>
+                        <li>vendor-specific hardware</li>
+                        <li>IBM workstation/terminal emulators</li>
+                        <li>system info/monitoring</li>
+                        <li>Japanese</li>
+                        <li>joke programs</li>
+                        <li>keyboard enhancers</li>
+                        <li>file/disk compression</li>
+                        <li>shells/command interpreters</li>
+                        <li>mouse/pointing device</li>
+                        <li>memory management</li>
+                        <li>network</li>
+                        <li>non-traditional input devices</li>
+                        <li>other operating systems</li>
+                        <li>printer enhancements</li>
+                        <li>power management</li>
+                        <li>DESQview/TopView and Quarterdeck programs</li>
+                        <li>remote control/file access</li>
+                        <li>runtime support</li>
+                        <li>serial I/O</li>
+                        <li>sound/speech</li>
+                        <li>DOS-based task switchers/multitaskers</li>
+                        <li>TSR libraries</li>
+                        <li>resident utilities</li>
+                        <li>emulators</li>
+                        <li>video</li>
+                        <li>virus/antivirus</li>
+                        <li>MS Windows</li>
+                        <li>expansion bus BIOSes</li>
+                        <li>non-volatile config storage</li>
+                        <li>security</li>
+                        <li>reserved (and not otherwise classified)</li>
+                        <li>uncategorized</li>
+                    </ul>
+                </p>
+                <h3 id="dump-download">Can I download a raw JSON dump of all interrupts?</h3>
+                <p>
+                    Of course, <a href="{% static 'ralf_explorer/dump.json' %}" download>link</a>.
+                </p>
+                <h3>Anything else mildly interesting about this site?</h3>
+                <p>
+                    This site only exists because I picked up trying to learn operating system development again because of 
+                    quarantine and I found the lack of easy to browse, good interrupt documentation very disappointing. 
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

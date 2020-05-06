@@ -1,0 +1,101 @@
+{% load static %}
+{% load listify %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'ralf_explorer/styles.css' %}" />
+        <title>Interrupt List</title>
+    </head>
+    <body>
+        <div class="content-main">
+            <div>
+                <h1>{{title}}</h1>
+                <p><a href="/">home</a></p>        
+            </div>
+
+            <div class="search">
+
+                {% include 'ralf_explorer/search.html' %}
+
+            </div>
+
+
+            {% if interrupt_list %}
+
+                <div class="search-info">
+                    <p><b>{{interrupt_list|length}} results</b></p>
+                </div>
+
+                <div class="interrupt-list">
+
+                    {% if not full_context %}
+
+                    <table>
+                        <tr>
+                            <th>INT</th>
+                            <th>CALL</th>
+                            <th>Categories</th>
+                            <th>Tagline</th>
+                            <th>More</th>
+                        </tr>
+                        {% for interrupt in interrupt_list %}
+                            <tr class="item-row">
+                                <td>{{ interrupt.number }}</td>
+                                <td>{{ interrupt.call_number }}</td>
+                                <td>{{ interrupt.categories }}</td>
+                                <td>{{ interrupt.tagline }}</td>
+                                <td><a href="{% url 'filter' %}?id={{interrupt.id}}&full_context=1">More</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                    {% else %}
+
+                        {% for interrupt in interrupt_list %}
+
+                        <div>
+                            <h2>INT {{ interrupt.number }}</h2>
+                            <p>
+                                Category : {{ interrupt.categories }} <br/>
+                                Tagline  : {{ interrupt.tagline }}
+                            </p>
+                            <p>
+                                {% for register in interrupt.registers_json|listify %}
+
+                                    <b>{{register.name}} {{register.set_symbol}} {{register.value}}</b><br/>
+                                    {% if register.notes|length > 0 %}
+                                        {% for note in register.notes %}
+                                        <span class="tab">{{note}}</span><br/>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                {% endfor %}
+                            </p>
+                            <p>
+                            {% with sections_info=interrupt.sections_json|jsonloads %}
+                                {% for section in sections_info.subsections %}
+                                    <b>{{ section.name}}:</b><br/>
+                                    {% for line in section.content %}
+                                        <span class="tab">{{line}}</span><br/>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endwith %}
+                            </p>
+                        </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+
+            {% else %}
+                <h3>No interrupts found.</h3>
+            {% endif %}
+
+        </div>
+    </body>
+</html>
+
+

@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'ralf_explorer/styles.css' %}" />
+        <title>Interrupt List</title>
+    </head>
+    <body>
+        <div class="content-main">
+            <h1>{{title}}</h1>
+
+            <div class="search">
+
+                {% include 'ralf_explorer/search.html' %}
+
+            </div>
+    
+            <div class="about">
+                <h3 id="search-help">How Search Works</h3>
+                <p>
+                    The search system works similar to a database, with name fields and their values delimited by colons, if a 
+                    value contains spaces then it is wrapped in quotes, eg:
+                </p>
+
+                <p>
+                    <b>category:video category:hardware</b><br/>
+                    <span class='tab'>all interrupts with categories video OR hardware</span><br/><br/>
+
+                    <b>c:video c:hardware</b><br/>
+                    <span class='tab'>above search but with shortcuts</span><br/><br/>
+
+                    <b>c:video call_number:ah</b><br/>
+                    <span class='tab'>video interrupts with 1 byte call number</span><br/><br/>
+
+                    <b>tagline:'back door'</b><br/>
+                    <span class='tab'>interrupts with "back door" (case insensitive) in tagline</span><br/>
+                    <em>Note: either single or double quotes may be used but they must be balanced</em>
+                </p>
+
+                <p>Here is a complete list of the search fields:</p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Shortcut</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>i</td>
+                        <td>Database ID</td>
+                    </tr>
+                    <tr>
+                        <td>category</td>
+                        <td>c</td>
+                        <td>Category, a complete list of categories can be found <a href="{% url 'view_info' %}#category-list">here</a></td>
+                    </tr>
+                    <tr>
+                        <td>call_number</td>
+                        <td>cn</td>
+                        <td>Value put in AH/AX to signify specific interrupt</td>
+                    </tr>
+                    <tr>
+                        <td>number</td>
+                        <td>n</td>
+                        <td>Number used when calling INT, in hex</td>
+                    </tr>
+                    <tr>
+                        <td>tagline</td>
+                        <td>t</td>
+                        <td>Summary of interrupt, usually contains system name</td>
+                    </tr>
+                    <tr>
+                        <td>sections</td>
+                        <td>s</td>
+                        <td>Extended description of interrupt, including information such as description and return location</td>
+                    </tr>
+                </table>
+
+                <p>
+                    For more information on each of these categories, look <a href="{% url 'view_info' %}#search-fields">here</a>.
+                </p>
+
+                <br/>
+
+                <h3>What is this?</h3>
+                <p>
+                    <em>"Ralf Brown's Interrupt List (aka RBIL, x86 Interrupt List, MS-DOS Interrupt List or INTER) is a comprehensive list 
+                    of interrupts, calls, hooks, interfaces, data structures, CMOS settings, memory and port addresses, as well as processor 
+                    opcodes and special function registers for x86 machines (including many clones) from the very start of the PC era in 1981 
+                    up to 2000, most of it still applying to PCs today."</em> -<a href="https://en.wikipedia.org/wiki/Ralf_Brown%27s_Interrupt_List" target="_blank">Wikipedia</a>
+                </p>
+                <p>
+                    There are existing ways to browse this list online (namely <a href="http://www.ctyme.com/rbrown.htm" target="_blank">here</a></b>),
+                    but I found these resources rather cumbersome to use, so I parsed the original lists (GitHub repo for <em>that</em> <a href="#">here</a>),
+                    pushed them into a db, and made it searchable. None of the information on this website was compiled by me, I merely put it into a
+                    format that was invented after 2001 and made it a bit easier to browse.
+                    <br /><br />
+                </p>
+                <p>
+                    <b>Original list from July of 2000 can be found here:
+                    <a href="https://www.cs.cmu.edu/~ralf/files.html" target="_blank">Ralf Brown's Interrupt List</a></b>.
+                </p>
+
+                <br/>
+                <h3>API Summary</h3>
+                <p>
+                    <em>(This has the same functionality as the page search, it just returns results in JSON format)</em>
+                </p>
+                <p>
+                    Extension: <a href="{% url 'filter_json' %}">{% url 'filter_json' %}</a>
+                </p>
+                <p>
+                    GET parameters:
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>integer</td>
+                        <td>
+                            Interrupt entry id
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>category</td>
+                        <td>string</td>
+                        <td>
+                            Interrupt category
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>call_number</td>
+                        <td>string</td>
+                        <td>
+                            Value put in AH/AX to signify specific interrupt, uses case insensitive contains so queries such
+                            as "AH", "09h", and "69" are all valid. "N/A" is used when an interrupt was not provided a value.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>number</td>
+                        <td>string (hex)</td>
+                        <td>
+                            Number used when calling INT, hex encoded
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>tagline</td>
+                        <td>string</td>
+                        <td>
+                            Interrupt tagline/summary, contains the system and category. 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sections</td>
+                        <td>string</td>
+                        <td>
+                            Section content of a given interrupt, or the extra information
+                            such as description, returns, registers, and anything else noted by Ralf.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>multisearch</td>
+                        <td>string</td>
+                        <td>
+                            Uses the search system described at the top of this page, if specified, overrides all other
+                            GET params.
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    If you need to query this database frequenty, consider instead using 
+                    the <a href="{% url 'view_info' %}#dump-download">downloadable JSON form</a> of it.
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
+
+

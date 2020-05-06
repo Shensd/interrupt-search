@@ -1,0 +1,51 @@
+body {
+    font-family: monospace;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+table, td, th {
+    text-align: left;
+    border: 1px solid black;
+}
+td {
+    min-width: 50px;
+}
+
+.tab {
+    padding-right: 2em;
+}
+
+.about {
+    /* margin-top: 50px; */
+}
+.content-main {
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+}
+
+.search {
+    border: 1px solid black;
+    padding: 10px;
+}
+.search-form > form {
+    /* display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column; */
+}
+.search-form > form > input {
+    /* width: 50%; */
+}
+.full-width {
+    width: 90%;
+}

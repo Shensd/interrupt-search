@@ -1,0 +1,33 @@
+<div class="search-form">
+    <!-- <form action="{% url 'filter' %}" method="GET">
+
+        <input name="category" type="text" value="{{search.categories__icontains}}" placeholder="category"/> 
+        <input name="call_number" type="text" value="{{search.call_number__icontains}}" placeholder="call number"/> 
+        <input name="number" type="text" value="{{search.number__iexact}}" placeholder="interrupt number"/>
+        <input name="tagline" type="text" value="{{search.tagline__icontains}}" placeholder="tagline"/> 
+        <input name="sections" type="text" value="{{search.sections_json__icontains}}" placeholder="section content"/> 
+
+        <div>
+            <input name="full_context" type="checkbox" value="1" id="full_context" />
+            <label for="full_context">show full interrupt content</label>
+        </div>
+
+        <br/>
+        <input type="submit" value="search" />
+
+    </form> -->
+    <form action="{% url 'filter' %}" method="GET">
+        <input class="full-width" name="multisearch" type="text" value="{{multisearch}}" placeholder="query interrupts" />
+
+        <div>
+            <input name="full_context" type="checkbox" value="1" id="full_context" />
+            <label for="full_context">show full interrupt content</label>
+        </div>
+
+        <input type="submit" value="search" />
+    </form>
+</div>
+
+<br />
+
+<a href="{% url 'index' %}#search-help">More information on search</a>
