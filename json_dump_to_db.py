@@ -3,9 +3,8 @@ import json
 
 # This is the method used to convert the raw json into a useable database for django,
 # simply open the django shell, import this file, and run add_entries
-
 def add_entries():
-    with open("ralf_explorer/data/dump.json") as dump_file:
+    with open("static/dump.json") as dump_file:
         lines = dump_file.readlines()
 
     interrupts = json.loads("".join(lines))

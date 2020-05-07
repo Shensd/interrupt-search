@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# TRUE FOR PRODUCTION MODE
+PRODUCTION = False
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,26 +22,42 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3qksw&1g))=p2+p&!v4l$zwjtpk5lgrd26_s*t-3!+w#_t5pe@'
+if PRODUCTION:
+    if 'SECRET_KEY' in os.environ:
+        SECRET_KEY = os.environ['SECRET_KEY']
+    else:
+        print("SECRET_KEY environment variable not found")
+        quit(-1)
+else:
+    # default generated, never used in prod
+    SECRET_KEY = '3qksw&1g))=p2+p&!v4l$zwjtpk5lgrd26_s*t-3!+w#_t5pe@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = []
+if PRODUCTION:
+    ALLOWED_HOSTS = [
+        "int.hatsune.dev",
+        "www.int.hatsune.dev"
+    ]
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
     "ralf_explorer.apps.RalfExplorerConfig",
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# only enable admin features when not in production
+if not PRODUCTION:
+    INSTALLED_APPS.append('django.contrib.admin')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,4 +137,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+if PRODUCTION:
+    # serve files statically in prod
+    STATIC_ROOT = "/var/www/int.hatsune.dev/static/" # is it bad to disclose this? eh, probably fine
+    STATIC_DIRS = [
+        '/var/www/int.hatsune.dev/static/'
+    ]
+else:
+    STATIC_URL = '/static/'
+
+# other misc security settings
+if PRODUCTION:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_REFERRER_POLICY = "no-referrer"
