@@ -4,7 +4,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'ralf_explorer/styles.css' %}" />
-        <title>Interrupt List</title>
+        {% include 'ralf_explorer/seo.html' %}
     </head>
     <body>
         <div class="content-main">
@@ -102,6 +102,14 @@
                     <a href="https://www.cs.cmu.edu/~ralf/files.html" target="_blank">Ralf Brown's Interrupt List</a></b>.
                 </p>
 
+                <br />
+                <h2>Have a problem with the site?</h2>
+                <p>
+                    The GitHub repo for this project can be found <a href="https://github.com/Shensd/interrupt-search">here</a>, please
+                    submit any problems you have (or suggestions for future versions) under the Issues section. I currently run this site
+                    by myself, out of pocket, so any help in the form of pull requests or feature suggestions are much appreciated!
+                </p>
+
                 <br/>
                 <h2>API Summary</h2>
                 <p>
@@ -174,7 +182,8 @@
                 </table>
                 <p>
                     If you need to query this database frequenty, consider instead using 
-                    the <a href="{% url 'view_info' %}#dump-download">downloadable JSON form</a> of it.
+                    the <a href="{% url 'view_info' %}#dump-download">downloadable JSON form</a> of it, it will be much
+                    faster and will save me some bandwidth costs.
                 </p>
             </div>
         </div>

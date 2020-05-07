@@ -10,7 +10,8 @@ from .search import process_query
 # unsure of what to make the title of the page so this was just done
 # to make it a bit easier to change later if I so desire
 DEFAULT_CONTENT = {
-    "title": "SEARCHABLE INTERRUPT LIST"
+    "title": "SEARCHABLE INTERRUPT LIST",
+    "description": "An easy to search verion of Ralf Brown's Interrupt List"
 }
 
 def index(request):

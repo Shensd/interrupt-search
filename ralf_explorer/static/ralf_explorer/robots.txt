@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /filter
+Disallow: /filter/json
+Disallow: /static
+
+# If you're willing to snoop enough to look at this then how about I save 
+# you some time and link the public GitHub repo:
+# https://github.com/Shensd/interrupt-search
