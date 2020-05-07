@@ -36,8 +36,8 @@ def view_filtered_json(request):
     def convert_query_object(obj):
         return {
             "id": obj.id,
-            "number" : obj.number,
-            "call_number" : obj.call_number,
+            "vector" : obj.number,
+            "number" : obj.call_number,
             "categories" : obj.categories,
             "tagline" : obj.tagline,
             "registers_json" : convert_registers(obj.registers_json),

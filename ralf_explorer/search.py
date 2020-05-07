@@ -5,16 +5,16 @@ from .models import Interrupt
 _QUERY_CONVERSIONS = {
     "id": "id__exact",
     "category": "categories__icontains",
-    "call_number": "call_number__icontains",
-    "number": "number__iexact",
+    "number": "call_number__icontains",
+    "vector": "number__iexact",
     "tagline": "tagline__icontains",
     "sections": "sections_json__icontains",
 
     # the rest are short cut names
     "i": "id__exact",
     "c": "categories__icontains",
-    "cn": "call_number__icontains",
-    "n": "number__iexact",
+    "n": "call_number__icontains",
+    "v": "number__iexact",
     "t": "tagline__icontains",
     "s": "sections_json__icontains",
 }

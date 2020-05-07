@@ -21,9 +21,6 @@ td {
     padding-right: 2em;
 }
 
-.about {
-    /* margin-top: 50px; */
-}
 .content-main {
     width: 80vw;
     display: flex;
@@ -37,15 +34,28 @@ td {
     padding: 10px;
 }
 .search-form > form {
-    /* display: flex;
+    display: flex;
     align-items: left;
     justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: column; */
+    flex-direction: column;
 }
-.search-form > form > input {
-    /* width: 50%; */
+.context-check-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-direction: row;
 }
-.full-width {
-    width: 90%;
+.search-bar-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.search-bar-group > #search-button {
+    width: 100px;
+}
+.search-bar-group > #search-bar {
+    flex-grow: 10;
 }

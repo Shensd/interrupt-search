@@ -30,7 +30,7 @@
                     <b>c:video c:hardware</b><br/>
                     <span class='tab'>above search but with shortcuts</span><br/><br/>
 
-                    <b>c:video call_number:ah</b><br/>
+                    <b>c:video number:ah</b><br/>
                     <span class='tab'>video interrupts with 1 byte call number</span><br/><br/>
 
                     <b>tagline:'back door'</b><br/>
@@ -56,13 +56,13 @@
                         <td>Category, a complete list of categories can be found <a href="{% url 'view_info' %}#category-list">here</a></td>
                     </tr>
                     <tr>
-                        <td>call_number</td>
-                        <td>cn</td>
+                        <td>number</td>
+                        <td>n</td>
                         <td>Value put in AH/AX to signify specific interrupt</td>
                     </tr>
                     <tr>
-                        <td>number</td>
-                        <td>n</td>
+                        <td>vector</td>
+                        <td>v</td>
                         <td>Number used when calling INT, in hex</td>
                     </tr>
                     <tr>
@@ -142,7 +142,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>number</td>
+                        <td>vector</td>
                         <td>string (hex)</td>
                         <td>
                             Number used when calling INT, hex encoded
