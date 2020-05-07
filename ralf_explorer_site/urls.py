@@ -16,7 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from .settings import PRODUCTION
+
 urlpatterns = [
     path('', include('ralf_explorer.urls')),
-    path('admin/', admin.site.urls),
 ]
+
+# only add admin route in development
+if not PRODUCTION:
+    urlpatterns.append(
+        path('admin/', admin.site.urls),
+    )

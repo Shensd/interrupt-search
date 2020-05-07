@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # TRUE FOR PRODUCTION MODE
-PRODUCTION = False
+PRODUCTION = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +27,7 @@ if PRODUCTION:
         SECRET_KEY = os.environ['SECRET_KEY']
     else:
         print("SECRET_KEY environment variable not found")
-        quit(-1)
+        quit(0)
 else:
     # default generated, never used in prod
     SECRET_KEY = '3qksw&1g))=p2+p&!v4l$zwjtpk5lgrd26_s*t-3!+w#_t5pe@'
