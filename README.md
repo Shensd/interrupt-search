@@ -21,6 +21,6 @@ v:10 n:42h
 
 in order to find the definition of an interrupt that loads `42h` into either the AX or AH register and interrupts with vector `10`.
 
-### Where can I find more information
+### Where can I find more information?
 
 Most other questions specific to the site (such as search functionality and category lists) can be found on the website itself.
