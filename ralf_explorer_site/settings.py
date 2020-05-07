@@ -23,10 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 if PRODUCTION:
-    if 'SECRET_KEY' in os.environ:
-        SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_LOCATION = "/etc/secret.key"
+    if os.path.exists(SECRET_LOCATION):
+        with open(SECRET_LOCATION) as secret:
+            SECRET_KEY = secret.read().strip()
     else:
-        print("SECRET_KEY environment variable not found")
+        print("secret key file not found, quitting")
         quit(0)
 else:
     # default generated, never used in prod
@@ -143,8 +145,7 @@ if PRODUCTION:
     STATIC_DIRS = [
         '/var/www/int.hatsune.dev/static/'
     ]
-else:
-    STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 # other misc security settings
 if PRODUCTION:

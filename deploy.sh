@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# super need this and it's very easy to forget so just instant quit if it 
-# isn't present
-if [ -z "${SECRET_KEY}" ]; then
-    echo "No SECRET_KEY environment variable set, quitting";
-    exit;
-fi;
+# This deploy file is rather specific to the environment I have this deployed
+# in, so think of this more as a template if you are looking to deploy your
+# own prod instance of this project
+
+# generate a new random key file 
+dd if=/dev/random bs=512 count=128 | base64 -w 0 > /etc/secret.key
+chown root:www-data /etc/secret.key
 
 # check if prod flag is set in settings.pu
 if ! python3 -c 'import ralf_explorer_site.settings as set; quit(-1) if not set.PRODUCTION else quit(0)'; then
