@@ -28,6 +28,9 @@ td {
     align-items: left;
     flex-direction: column;
 }
+.about {
+    margin-top: 20px;
+}
 
 .search {
     border: 1px solid black;
